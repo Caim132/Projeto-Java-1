@@ -1,0 +1,71 @@
+// classe conta bancaria generica
+class ContaBancaria {
+    protected String numeroConta;
+    protected double saldo;
+
+    public ContaBancaria(String numeroConta) {
+        this.numeroConta = numeroConta;
+        this.saldo = 0.0;
+    }
+
+    public void depositar(double valor) {
+        saldo += valor;
+        System.out.println("Depósito de R$" + valor + " realizado na conta " + numeroConta);
+    }
+
+    public void sacar(double valor) {
+        if (valor <= saldo) {
+            saldo -= valor;
+            System.out.println("Saque de R$" + valor + " realizado na conta " + numeroConta);
+        } else {
+            System.out.println("Saldo insuficiente para saque na conta " + numeroConta);
+        }
+    }
+
+    public double consultarSaldo() {
+        System.out.println("Saldo atual da conta " + numeroConta + ": R$" + saldo);
+        return saldo;
+    }
+}
+
+// Vlasse para conta corrente que herda de ContaBancaria
+class ContaCorrente extends ContaBancaria {
+    private double taxaManutencao;
+
+    public ContaCorrente(String numeroConta, double taxaManutencao) {
+        super(numeroConta);
+        this.taxaManutencao = taxaManutencao;
+    }
+
+    // Pode adicionar métodos específicos para conta corrente, se necessário
+}
+
+// Classe para conta de poupança que herda de ContaBancaria
+class ContaPoupanca extends ContaBancaria {
+    private double taxaRendimento;
+
+    public ContaPoupanca(String numeroConta, double taxaRendimento) {
+        super(numeroConta);
+        this.taxaRendimento = taxaRendimento;
+    }
+
+    // Pode adicionar métodos específicos para conta poupança, se necessário
+}
+
+// Exemplo de uso das classes
+public class Main {
+    public static void main(String[] args) {
+        ContaCorrente cc = new ContaCorrente("12345", 10.0);
+        ContaPoupanca cp = new ContaPoupanca("54321", 0.05);
+
+        cc.depositar(1000);
+        cc.consultarSaldo();
+        cc.sacar(500);
+        cc.consultarSaldo();
+
+        cp.depositar(2000);
+        cp.consultarSaldo();
+        cp.sacar(300);
+        cp.consultarSaldo();
+    }
+}
